@@ -1,0 +1,10 @@
+Durante as aulas, foram mencionadas as seguintes estruturas de dados para representar grafos:
+1-Matriz de Adjacências
+Uma matriz de VxV em que a posição (u, v) tem elemento true se u-v é aresta do grafo.
+
+2-Lista de Adjacência
+Um vetor com V listas ligadas, cada uma delas contém os adjacentes ao vértice v.
+
+Nesse sentido, como deveremos implementar grafos para números e para palavras, a ideia é fazer uma estrutura genérica para representar os grafos. Assim, se utilizarmos um dicionário, onde as chaves são os vértices (chaves genéricas) e os valores são listas ligadas (os adjacentes do vértice da chave) penso que consiguiremos realizar a tarefa desejada.
+
+Desse modo, a primeira queestão do EP é (isso se decidir implementar a ideia cionada acima): Deveremos usar implementação própria de dicionário ou podemos usar implementações das bibliotecas do cpp?
