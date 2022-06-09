@@ -13,3 +13,6 @@ Desse modo, a primeira queestão do EP é (isso se decidir implementar a ideia c
 Em um segundo momento, acho que, no lugar de fazer um dicionário de listas ligadas, 
 talvez seja mais interessante fazer um dicionário de vectors. Já que conseguiremos dar 
 push no vector indiscriminadamente.
+
+Depois de implementado o esqueleto de construção do grafo, deveremos construir a função que obtém o menor caminho entre um vértice u e v. bfs().
+Estudando esse tópico no site do Paulo Feofiloff.
