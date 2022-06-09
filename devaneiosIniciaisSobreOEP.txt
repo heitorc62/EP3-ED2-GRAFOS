@@ -8,3 +8,8 @@ Um vetor com V listas ligadas, cada uma delas contém os adjacentes ao vértice 
 Nesse sentido, como deveremos implementar grafos para números e para palavras, a ideia é fazer uma estrutura genérica para representar os grafos. Assim, se utilizarmos um dicionário, onde as chaves são os vértices (chaves genéricas) e os valores são listas ligadas (os adjacentes do vértice da chave) penso que consiguiremos realizar a tarefa desejada.
 
 Desse modo, a primeira queestão do EP é (isso se decidir implementar a ideia cionada acima): Deveremos usar implementação própria de dicionário ou podemos usar implementações das bibliotecas do cpp?
+
+
+Em um segundo momento, acho que, no lugar de fazer um dicionário de listas ligadas, 
+talvez seja mais interessante fazer um dicionário de vectors. Já que conseguiremos dar 
+push no vector indiscriminadamente.
