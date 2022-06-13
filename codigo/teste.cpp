@@ -1,4 +1,5 @@
 #include<iostream>
+#include <climits>
 #include "Grafo.h"
 
 using namespace std;
@@ -12,6 +13,7 @@ int main(){
         cin >> u >> v;
         grafo.addPar(u, v);
     }
+    cout << INT_MAX;
 
     
 }
