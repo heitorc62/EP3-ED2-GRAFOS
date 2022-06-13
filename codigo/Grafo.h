@@ -12,12 +12,13 @@ template <class Item>
 class Grafo
 {
 public:
-    Grafo(){};
+    Grafo(){ adjacencias = map<Item, vector<Item>>(); };
     void addPar(Item v1, Item v2);
     map<Item, vector<Item>> adjacencias;
     map<Item, int> bfs(Item src);
     void distancias(Item src);
     int V; // O número total de vértices
+    void imprimeLista();
 };
 /*
 Receberemos duplas: u_1 v_1. Isso quer dizer que há uma aresta unindo os
@@ -26,11 +27,22 @@ adicionar u_1 ao vector de adjacências de v_1 e adicionar v_1 ao vector de
 adjacências de u_1.
 */
 template<class Item>
+void Grafo<Item>::imprimeLista(){
+    for(auto const& atual : adjacencias){
+        for(int i = 0; i < atual.second.size(); i++){
+            cout << atual.first << " " << atual.second[i] << endl;
+        }
+    }
+}
+
+
+
+template<class Item>
 void Grafo<Item>::distancias(Item src){
     map<Item, int> dist = bfs(src);
     for(auto const& atual : dist){
         if(atual.second == INT_MAX) cout << "O vértice " << src << " e o vértice " << atual.first << " não estão conectados." << endl;
-        else if(atual.second == 0) { continue; }
+        else if(atual.second == 0) { cout << "é o proprio" << endl;}
         else cout << "A distância do vértice " << src << " ao vértice " << atual.first <<  " é: " << atual.second << endl; 
     }
 }
@@ -38,7 +50,6 @@ void Grafo<Item>::distancias(Item src){
 template <class Item>
 void Grafo<Item>::addPar(Item v1, Item v2)
 {
-    adjacencias = map<Item, vector<Item>>();
     adjacencias[v1].push_back(v2);
     adjacencias[v2].push_back(v1);
 }

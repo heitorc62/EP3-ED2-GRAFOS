@@ -5,15 +5,21 @@
 using namespace std;
 
 int main(){
-    Grafo<int> grafo = Grafo<int>();
+    Grafo<string> grafo = Grafo<string>();
     int V; int E;
+    cout << "Insira o número de vértices e arestas V E" << endl;
     cin >> V >> E;
-    int u, v;
+    string u, v;
     for(int i = 0; i < E; i++){
+        cout << "Insira um par de vértices u v" << endl;
         cin >> u >> v;
         grafo.addPar(u, v);
     }
-    cout << INT_MAX;
+    cout << "Insira o vértice que quer calcular distâncias: ";
+    string epa;
+    cin >> epa;
+    //grafo.imprimeLista();
+    grafo.distancias(epa);
 
     
 }
