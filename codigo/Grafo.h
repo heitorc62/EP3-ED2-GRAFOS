@@ -24,7 +24,7 @@ public:
     int V; // O número total de vértices
     void imprimeLista();
     void show(vector<Item> lista);
-    int* compConexa();
+    map<Item, int> compConexa();
 };
 
 template<class Item>
@@ -89,9 +89,27 @@ adicionar u_1 ao vector de adjacências de v_1 e adicionar v_1 ao vector de
 adjacências de u_1.
 */
 template<class Item>
-int* Grafo<Item>::compConexa(){
-    int u = 0;
-    
+map<Item, int> Grafo<Item>::compConexa(){
+    int c = 0;
+    //bool* marked = new bool[V];
+    //Item* comp = new int[V];
+    map<Item, bool> marked;
+    map<Item, int> comp;
+    for(auto const& x : adjacencias){
+        marked[x.first] = false;
+        comp[x.first] = Item();
+    }
+    for(auto const& x : adjacencias){
+        Item u = x.first;
+        if(!marked[u]){
+            dfsR(u, marked);
+            for(auto const& y : adjacencias){
+                if(marked[y.first] && comp[y.first] == Item()) comp[y.first] = c;
+            }
+            c++;
+        }
+    }
+    return comp;
 }
 
 
