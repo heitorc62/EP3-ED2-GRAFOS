@@ -20,6 +20,5 @@ int main(){
     cin >> epa;
     //grafo.imprimeLista();
     grafo.distancias(epa);
-
     
 }

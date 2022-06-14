@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <queue>
+#include <fstream>
 
 using namespace std;
 
@@ -14,18 +15,63 @@ class Grafo
 public:
     Grafo(){ adjacencias = map<Item, vector<Item>>(); };
     void addPar(Item v1, Item v2);
+    void wordLadders();
+    vector<string> readWords(string caminho);
     map<Item, vector<Item>> adjacencias;
     map<Item, int> bfs(Item src);
     void distancias(Item src);
     int V; // O número total de vértices
     void imprimeLista();
+    int* compConexa();
 };
+
+template<class Item>
+vector<string> Grafo<Item>::readWords(string caminho){
+    vector<string> linhas;
+    string linha;
+    ifstream input_file(caminho);
+    if(!input_file.is_open()){
+        cout << "Não foi possível abrir o arquivo " << caminho << endl;
+    }
+    while(getline(input_file, linha)){  // Enquanto não chegamos ao final do arquivo, colocamos cada linha no vector
+        linhas.push_back(linha);
+    }
+    input_file.close();
+    return linhas;
+}
+
+
+
+template<class Item>
+void Grafo<Item>::wordLadders(){
+    cout << "Insira o caminho do do arquivo que contém as palavras: " << endl;
+    string caminho = "input.txt";
+    map<string, vector<string>> dict;
+    vector<string> palavras = readWords(caminho);
+    for(int i = 0; i < palavras.size(); i++){
+        for(int j = 0; j < palavras[i].length(); j++){
+            string bucket = palavras[i];
+            bucket[j] = '_';
+            dict[bucket].push_back(palavras[i]);
+        }
+    }
+    // Adicionar os pares agora!
+}
+
+
 /*
 Receberemos duplas: u_1 v_1. Isso quer dizer que há uma aresta unindo os
 vértices u_1 e v_1. Deveremos colocar u_1 e v_1 como chaves do dicionário,
 adicionar u_1 ao vector de adjacências de v_1 e adicionar v_1 ao vector de
 adjacências de u_1.
 */
+template<class Item>
+int* Grafo<Item>::compConexa(){
+    int u = 0;
+    
+}
+
+
 template<class Item>
 void Grafo<Item>::imprimeLista(){
     for(auto const& atual : adjacencias){
