@@ -1,5 +1,6 @@
 #ifndef GRAFO_H
 #define GRAFO_H
+#include <algorithm>
 #include <iostream>
 #include <map>
 #include <vector>
@@ -22,8 +23,16 @@ public:
     void distancias(Item src);
     int V; // O número total de vértices
     void imprimeLista();
+    void show(vector<Item> lista);
     int* compConexa();
 };
+
+template<class Item>
+void Grafo<Item>::show(vector<Item> lista){
+    for(int i = 0; i < lista.size(); i++){
+        cout << lista[i] << endl;
+    }
+}
 
 template<class Item>
 vector<string> Grafo<Item>::readWords(string caminho){
@@ -41,13 +50,17 @@ vector<string> Grafo<Item>::readWords(string caminho){
 }
 
 
-
 template<class Item>
 void Grafo<Item>::wordLadders(){
-    cout << "Insira o caminho do do arquivo que contém as palavras: " << endl;
-    string caminho = "input.txt";
+    //cout << "Insira o caminho do arquivo que contém as palavras: " << endl;
+    string caminho = "words5.txt";
+    //cin >> caminho;
     map<string, vector<string>> dict;
     vector<string> palavras = readWords(caminho);
+    //show(palavras);
+
+
+
     for(int i = 0; i < palavras.size(); i++){
         for(int j = 0; j < palavras[i].length(); j++){
             string bucket = palavras[i];
@@ -55,7 +68,17 @@ void Grafo<Item>::wordLadders(){
             dict[bucket].push_back(palavras[i]);
         }
     }
+
     // Adicionar os pares agora!
+    for(auto const& bucket : dict){
+        for(int i = 0; i < bucket.second.size(); i++){
+            for(int j = 0; j < bucket.second.size(); j++){
+                if(bucket.second[i] != bucket.second[j]){
+                    addPar(bucket.second[i], bucket.second[j]);
+                }
+            }
+        }             
+    }
 }
 
 
@@ -75,9 +98,11 @@ int* Grafo<Item>::compConexa(){
 template<class Item>
 void Grafo<Item>::imprimeLista(){
     for(auto const& atual : adjacencias){
+        cout << atual.first << " -> [ ";
         for(int i = 0; i < atual.second.size(); i++){
-            cout << atual.first << " " << atual.second[i] << endl;
+            cout << atual.second[i] << " ";
         }
+        cout << " ]" << endl;
     }
 }
 
@@ -96,8 +121,10 @@ void Grafo<Item>::distancias(Item src){
 template <class Item>
 void Grafo<Item>::addPar(Item v1, Item v2)
 {
-    adjacencias[v1].push_back(v2);
-    adjacencias[v2].push_back(v1);
+    if(adjacencias.count(v1) == 0) V++;
+    if(adjacencias.count(v2) == 0) V++;
+    if(!count(adjacencias[v1].begin(), adjacencias[v1].end(), v2)) adjacencias[v1].push_back(v2);
+    if(!count(adjacencias[v2].begin(), adjacencias[v2].end(), v1)) adjacencias[v2].push_back(v1);
 }
 
 template <class Item>
