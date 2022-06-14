@@ -17,6 +17,7 @@ public:
     Grafo(){ adjacencias = map<Item, vector<Item>>(); };
     void addPar(Item v1, Item v2);
     void wordLadders();
+    void infoCompsConexas();
     vector<string> readWords(string caminho);
     map<Item, vector<Item>> adjacencias;
     map<Item, int> bfs(Item src);
@@ -88,6 +89,25 @@ vértices u_1 e v_1. Deveremos colocar u_1 e v_1 como chaves do dicionário,
 adicionar u_1 ao vector de adjacências de v_1 e adicionar v_1 ao vector de
 adjacências de u_1.
 */
+
+template<class Item>
+void Grafo<Item>::infoCompsConexas(){
+    map<Item, int> comp = compConexa;
+    int* aux = new int[V];
+    for(int i = 0; i < V; i++) aux[i] = 0;
+    for(auto const& x : comp){
+        aux[x.second]++;
+    }
+    for(int i = 0; i < V; i++){
+        if(aux[i] == 0){continue;}
+        else{
+            cout << "A componente conexa " << i << " tem " << aux[i] << " elementos." << endl;
+        }
+    }
+}
+
+
+
 template<class Item>
 map<Item, int> Grafo<Item>::compConexa(){
     int c = 0;
