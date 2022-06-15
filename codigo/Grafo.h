@@ -17,6 +17,7 @@ class Grafo
 public:
     Grafo(){ adjacencias = map<Item, vector<Item>>(); };
     void addPar(Item v1, Item v2);
+    void dfsR(Item v, map<Item, bool> marked);
     void wordLadders();
     void infoCompsConexas();
     vector<string> readWords(string caminho);
@@ -153,6 +154,16 @@ map<Item, int> Grafo<Item>::compConexa(){
     return comp;
 }
 
+template<class Item>
+void Grafo<Item>::dfsR(Item v, map<Item, bool> marked){
+    marked[v] = true;
+    for(int i = 0; i < adjacencias[v].size(); i++){
+        Item w = adjacencias[v][i];
+        if(!marked[w]){
+            dfsR(w, marked);
+        }
+    }
+}
 
 template<class Item>
 void Grafo<Item>::imprimeLista(){
