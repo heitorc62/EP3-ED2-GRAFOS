@@ -21,6 +21,13 @@ void input(){
     grafo.distancias(epa);
 }
 
+void wordLadders(){
+    Grafo<string> grafo = Grafo<string>();
+    grafo.wordLadders();
+    grafo.imprimeLista();
+    cout << grafo.V << endl;
+}
+
 int main(){
     /*
     Grafo<string> grafo = Grafo<string>();
@@ -39,10 +46,14 @@ int main(){
     */
     //grafo.imprimeLista();
     //grafo.distancias(epa);
+    /*
     Grafo<string> grafo = Grafo<string>();
     grafo.wordLadders();
     grafo.imprimeLista();
     cout << grafo.V << endl;
-    
+    */
+    Grafo<string> grafo = Grafo<string>();
+    grafo.randomGraphs();
+    grafo.imprimeLista();
     
 }

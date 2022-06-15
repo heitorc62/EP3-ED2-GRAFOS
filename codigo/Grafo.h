@@ -7,6 +7,7 @@
 #include <string>
 #include <queue>
 #include <fstream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -25,8 +26,28 @@ public:
     int V; // O número total de vértices
     void imprimeLista();
     void show(vector<Item> lista);
+    void randomGraphs();
     map<Item, int> compConexa();
 };
+
+template<class Item>
+void Grafo<Item>::randomGraphs(){
+    int total;
+    cout << "Insira o total de vértices: ";
+    cin >> total;
+    double p, r;
+    cout << "Insira p: ";
+    cin >> p;
+    for(int i = 1; i <= total; i++){
+        for(int j = i + 1; j <= total; j++){
+            r = (double)(rand() % 100)/(double)100;
+            if(r < p){
+                addPar(to_string(i), to_string(j));
+            }
+        }
+    }
+}
+
 
 template<class Item>
 void Grafo<Item>::show(vector<Item> lista){
