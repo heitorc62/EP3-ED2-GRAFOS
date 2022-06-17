@@ -17,7 +17,8 @@ class Grafo
 public:
     Grafo(){ adjacencias = map<Item, vector<Item>>(); };
     void addPar(Item v1, Item v2);
-    void dfsR(Item v, map<Item, bool> marked);
+    void addSingular(Item v);
+    void dfsR(Item v, map<Item, bool> & marked);
     void wordLadders();
     void infoCompsConexas();
     vector<string> readWords(string caminho);
@@ -114,11 +115,12 @@ adjacências de u_1.
 
 template<class Item>
 void Grafo<Item>::infoCompsConexas(){
-    map<Item, int> comp = compConexa;
+    map<Item, int> comp = compConexa();
     int* aux = new int[V];
     for(int i = 0; i < V; i++) aux[i] = 0;
     for(auto const& x : comp){
         aux[x.second]++;
+        //cout << "O item " << x.first << " pertence à comp conexa: " << x.second << endl;
     }
     for(int i = 0; i < V; i++){
         if(aux[i] == 0){continue;}
@@ -139,14 +141,14 @@ map<Item, int> Grafo<Item>::compConexa(){
     map<Item, int> comp;
     for(auto const& x : adjacencias){
         marked[x.first] = false;
-        comp[x.first] = Item();
+        comp[x.first] = -1;
     }
     for(auto const& x : adjacencias){
         Item u = x.first;
         if(!marked[u]){
             dfsR(u, marked);
             for(auto const& y : adjacencias){
-                if(marked[y.first] && comp[y.first] == Item()) comp[y.first] = c;
+                if(marked[y.first] && comp[y.first] == -1) comp[y.first] = c;
             }
             c++;
         }
@@ -155,7 +157,7 @@ map<Item, int> Grafo<Item>::compConexa(){
 }
 
 template<class Item>
-void Grafo<Item>::dfsR(Item v, map<Item, bool> marked){
+void Grafo<Item>::dfsR(Item v, map<Item, bool> & marked){
     marked[v] = true;
     for(int i = 0; i < adjacencias[v].size(); i++){
         Item w = adjacencias[v][i];
@@ -195,6 +197,12 @@ void Grafo<Item>::addPar(Item v1, Item v2)
     if(adjacencias.count(v2) == 0) V++;
     if(!count(adjacencias[v1].begin(), adjacencias[v1].end(), v2)) adjacencias[v1].push_back(v2);
     if(!count(adjacencias[v2].begin(), adjacencias[v2].end(), v1)) adjacencias[v2].push_back(v1);
+}
+
+template<class Item>
+void Grafo<Item>::addSingular(Item v){
+    if(adjacencias.count(v) == 0) V++;
+    adjacencias[v];
 }
 
 template <class Item>

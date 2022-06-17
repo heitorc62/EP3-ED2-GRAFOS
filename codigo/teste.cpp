@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void input(){
+Grafo<string> input(){
     Grafo<string> grafo = Grafo<string>();
     int V; int E;
     cout << "Insira o número de vértices e arestas V E" << endl;
@@ -15,18 +15,47 @@ void input(){
         cin >> u >> v;
         grafo.addPar(u, v);
     }
+    while(grafo.V < V){
+        cout << "Ainda faltam " << V - grafo.V << " vértices para serem adicionados. Adicione um vértice: " << endl;
+        string novo;
+        cin >> novo;
+        grafo.addSingular(novo);
+    }
+    return grafo;
+}
+
+
+ void distancias(){
+    Grafo<string> grafo = input();
     cout << "Insira o vértice que quer calcular distâncias: ";
     string epa;
     cin >> epa;
     grafo.distancias(epa);
 }
 
+
 void wordLadders(){
     Grafo<string> grafo = Grafo<string>();
     grafo.wordLadders();
     grafo.imprimeLista();
-    cout << grafo.V << endl;
+    cout << "O grafo possui " << grafo.V << " vértices." << endl;
 }
+
+
+void randomGrafo(){
+    Grafo<string> grafo = Grafo<string>();
+    grafo.randomGraphs();
+    grafo.imprimeLista();
+    cout << "O grafo possui " << grafo.V << " vértices." << endl;
+}
+
+void comps(){
+    Grafo<string> grafo = input();
+    grafo.infoCompsConexas();
+
+}
+
+
 
 int main(){
     /*
@@ -52,8 +81,6 @@ int main(){
     grafo.imprimeLista();
     cout << grafo.V << endl;
     */
-    Grafo<string> grafo = Grafo<string>();
-    grafo.randomGraphs();
-    grafo.imprimeLista();
+    comps();
     
 }
