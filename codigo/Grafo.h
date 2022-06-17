@@ -28,26 +28,45 @@ public:
     int V; // O número total de vértices
     void imprimeLista();
     void show(vector<Item> lista);
-    void randomGraphs();
+    void randomGraphs(int n, double p);
+    vector<Item> maiorComp();
     map<Item, int> compConexa();
 };
 
 template<class Item>
-void Grafo<Item>::randomGraphs(){
-    int total;
-    cout << "Insira o total de vértices: ";
-    cin >> total;
-    double p, r;
-    cout << "Insira p: ";
-    cin >> p;
-    for(int i = 1; i <= total; i++){
-        for(int j = i + 1; j <= total; j++){
+void Grafo<Item>::randomGraphs(int n, double p){
+    double r;
+    for(int i = 1; i <= n; i++){
+        for(int j = i + 1; j <= n; j++){
             r = (double)(rand() % 100)/(double)100;
             if(r < p){
                 addPar(to_string(i), to_string(j));
             }
         }
     }
+}
+
+template<class Item>
+vector<Item> Grafo<Item>::maiorComp(){
+    map<Item, int> componentes = compConexa();
+    map<int, vector<Item>> componentes2;
+    vector<Item> maior;
+    int max = 0, compMax;
+    for(auto const& x : componentes){
+        componentes2[x.second].push_back(x.first);
+        //cout << "O elemento " << x.first << " está na " << x.second << " componente conexa." << endl;
+        if(componentes2[x.second].size() > max){
+            max = componentes2[x.second].size();
+            compMax = x.second;
+        }
+    }
+    //cout << "A maior componente é a componente de número " << compMax << endl;
+    // Agora temos um map em que as keys são as componentes conexas e os valores são os vértices que estão em cada componente.
+    // Também já sabemos qual é a maior componente conexa.
+    for(int i = 0; i < componentes2[compMax].size(); i++){
+        maior.push_back(componentes2[compMax][i]);
+    }
+    return maior;
 }
 
 
@@ -122,12 +141,19 @@ void Grafo<Item>::infoCompsConexas(){
         aux[x.second]++;
         //cout << "O item " << x.first << " pertence à comp conexa: " << x.second << endl;
     }
+    int max = 0, media = 0, total = 0;
     for(int i = 0; i < V; i++){
         if(aux[i] == 0){continue;}
         else{
             cout << "A componente conexa " << i << " tem " << aux[i] << " elementos." << endl;
+            if(aux[i] > max) max = aux[i];
+            total++;
+            media += aux[i];
         }
     }
+    cout << "A maior componente conexa tem " << max << " elementos." << endl;
+    cout << "Há " << total << " componentes conexas." << endl;
+    cout << "A quantidade média de elementos em uma componente conexa é: " << media/total << endl;
 }
 
 
