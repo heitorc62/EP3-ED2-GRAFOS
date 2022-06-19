@@ -36,9 +36,13 @@ public:
 template<class Item>
 void Grafo<Item>::randomGraphs(int n, double p){
     double r;
+    V = n;
+    for(int i = 1; i <= n; i++){
+        adjacencias[to_string(i)];
+    }
     for(int i = 1; i <= n; i++){
         for(int j = i + 1; j <= n; j++){
-            r = (double)(rand() % 100)/(double)100;
+            r = (double)((double)rand()/(double)RAND_MAX);
             if(r < p){
                 addPar(to_string(i), to_string(j));
             }
@@ -101,6 +105,9 @@ void Grafo<Item>::wordLadders(){
     map<string, vector<string>> dict;
     vector<string> palavras = readWords(caminho);
     //show(palavras);
+    for(int i = 0; i < palavras.size(); i++){
+        adjacencias[palavras[i]];
+    }
 
 
 
@@ -141,11 +148,13 @@ void Grafo<Item>::infoCompsConexas(){
         aux[x.second]++;
         //cout << "O item " << x.first << " pertence à comp conexa: " << x.second << endl;
     }
-    int max = 0, media = 0, total = 0;
+    int max = 0, total = 0;
+    double media = 0;
+
     for(int i = 0; i < V; i++){
         if(aux[i] == 0){continue;}
         else{
-            cout << "A componente conexa " << i << " tem " << aux[i] << " elementos." << endl;
+            //cout << "A componente conexa " << i << " tem " << aux[i] << " elementos." << endl;
             if(aux[i] > max) max = aux[i];
             total++;
             media += aux[i];
@@ -153,7 +162,7 @@ void Grafo<Item>::infoCompsConexas(){
     }
     cout << "A maior componente conexa tem " << max << " elementos." << endl;
     cout << "Há " << total << " componentes conexas." << endl;
-    cout << "A quantidade média de elementos em uma componente conexa é: " << media/total << endl;
+    cout << "A quantidade média de elementos em uma componente conexa é: " << (double)media/(double)total << endl;
 }
 
 

@@ -8,7 +8,22 @@
 
 using namespace std;
 
-Grafo<string> input(){
+Grafo<string> input1(){
+    Grafo<string> grafo = Grafo<string>();
+    int V; int E;
+    cout << "Insira o número de vértices e arestas V E" << endl;
+    cin >> V >> E;
+    string u, v;
+    for(int i = 0; i < E; i++){
+        cout << "Insira um par de vértices u v" << endl;
+        cin >> u >> v;
+        grafo.addPar(u, v);
+    }
+    return grafo;
+}
+
+
+Grafo<string> input2(){
     Grafo<string> grafo = Grafo<string>();
     int V; int E;
     cout << "Insira o número de vértices e arestas V E" << endl;
@@ -30,7 +45,7 @@ Grafo<string> input(){
 
 
  void distancias(){
-    Grafo<string> grafo = input();
+    Grafo<string> grafo = input2();
     cout << "Insira o vértice que quer calcular distâncias: ";
     string epa;
     cin >> epa;
@@ -60,7 +75,7 @@ void randomGrafo(){
 }
 
 void comps(){
-    Grafo<string> grafo = input();
+    Grafo<string> grafo = input2();
     grafo.infoCompsConexas();
 }
 
@@ -68,16 +83,16 @@ void componentegigante(){
     Grafo<string> grafo = Grafo<string>();
     int n;
     double p, e;
-    cout << "Insira o total (n) de vértices desejados no grafo: ";
+    //cout << "Insira o total (n) de vértices desejados no grafo: ";
     cin >> n;
-    cout << "A propriedade das componentes gigantes em um grafo, é tal que se a probabilidade de dois vértices estarem ligados é p, então: " << endl;
-    cout << "se p <= (1 - ε)/n, então, com alta probabilidade as componentes conexas serão pequenas, com O(log n) elementos." << endl;
-    cout << "se p >= (1 + ε)/n, então, surge uma componente gigante no grafo." << endl;
-    cout << "Note que O(log " << n << ") = " << "O(" << log10(n) << ")" << endl;
-    cout << "Então, como n = " << n << " e tomando ε = 0.12: " << endl;
-    cout << "Insira p <= " << (1 - e)/n << " se quiser componentes pequenas." << endl;
-    cout << "Insira p >= " << (1 + e)/n << " se quiser componente gigante." << endl;
-    cout << "Insira p: ";
+    //cout << "A propriedade das componentes gigantes em um grafo, é tal que se a probabilidade de dois vértices estarem ligados é p, então: " << endl;
+    //cout << "se p <= (1 - ε)/n, então, com alta probabilidade as componentes conexas serão pequenas, com O(log n) elementos." << endl;
+    //cout << "se p >= (1 + ε)/n, então, surge uma componente gigante no grafo." << endl;
+    //cout << "Note que O(log " << n << ") = " << "O(" << log10(n) << ")" << endl;
+    //cout << "Então, como n = " << n << " e tomando ε = 0.12: " << endl;
+    //cout << "Insira p <= " << (double)(1 - e)/(double)n << " se quiser componentes pequenas." << endl;
+    //cout << "Insira p >= " << (1 + e)/n << " se quiser componente gigante." << endl;
+    //cout << "Insira p: ";
     cin >> p;
     grafo.randomGraphs(n, p);
     grafo.infoCompsConexas();
@@ -88,12 +103,12 @@ void seisGraus(){
     Grafo<string> grafo = Grafo<string>();
     int n;
     double p;
-    cout << "Insira o total de vértices desejados no grafo: ";
+    //cout << "Insira o total de vértices desejados no grafo: ";
     cin >> n;
-    cout << "Insira a probabilidade de dois vértices estarem ligados: ";
+    //cout << "Insira a probabilidade de dois vértices estarem ligados: ";
     cin >> p;
     grafo.randomGraphs(n, p);
-    grafo.imprimeLista();
+    //grafo.imprimeLista();
     int cont = 0;
     double media1, media2;
     vector<string> maior = grafo.maiorComp();
@@ -109,6 +124,8 @@ void seisGraus(){
         media2 += media1;
     }
     media2 /= maior.size();
+    cout << "n = " << n << endl;
+    cout << "p = " << p << endl;
     cout << "A distância média entre dois vértices da maior componente conexa do grafo gerado é: " << media2 << endl;
     
     
