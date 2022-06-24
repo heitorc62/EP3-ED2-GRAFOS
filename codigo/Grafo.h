@@ -21,7 +21,7 @@ public:
     void dfsR(Item v, map<Item, bool> & marked);
     void wordLadders();
     void infoCompsConexas();
-    vector<string> readWords(string caminho);
+    vector<string> readWords(string caminho);   
     map<Item, vector<Item>> adjacencias;
     map<Item, int> bfs(Item src);
     void distancias(Item src);
@@ -30,6 +30,7 @@ public:
     void show(vector<Item> lista);
     void randomGraphs(int n, double p);
     vector<Item> maiorComp();
+    vector<Item> compsSingulares();
     map<Item, int> compConexa();
 };
 
@@ -73,6 +74,36 @@ vector<Item> Grafo<Item>::maiorComp(){
     return maior;
 }
 
+template<class Item>
+vector<Item> Grafo<Item>::compsSingulares(){
+    map<Item, int> componentes = compConexa();
+    map<int, vector<Item>> componentes2;
+    vector<Item> maior;
+    vector<Item> singulares;
+    int max = 0, compMax;
+    for(auto const& x : componentes){
+        componentes2[x.second].push_back(x.first);
+        //cout << "O elemento " << x.first << " está na " << x.second << " componente conexa." << endl;
+    }
+    //cout << "A maior componente é a componente de número " << compMax << endl;
+    // Agora temos um map em que as keys são as componentes conexas e os valores são os vértices que estão em cada componente.
+    // Também já sabemos qual é a maior componente conexa.
+    for(auto const& x : componentes2){
+        if(x.second.size() == 1){
+            singulares.push_back(x.second[0]);
+        }
+    }
+    return singulares;
+}
+
+
+
+
+
+
+
+
+
 
 template<class Item>
 void Grafo<Item>::show(vector<Item> lista){
@@ -99,9 +130,9 @@ vector<string> Grafo<Item>::readWords(string caminho){
 
 template<class Item>
 void Grafo<Item>::wordLadders(){
-    //cout << "Insira o caminho do arquivo que contém as palavras: " << endl;
-    string caminho = "words5.txt";
-    //cin >> caminho;
+    cout << "Insira o caminho do arquivo que contém as palavras: " << endl;
+    string caminho;
+    cin >> caminho;
     map<string, vector<string>> dict;
     vector<string> palavras = readWords(caminho);
     //show(palavras);
@@ -110,7 +141,7 @@ void Grafo<Item>::wordLadders(){
     }
 
 
-
+    V = palavras.size();
     for(int i = 0; i < palavras.size(); i++){
         for(int j = 0; j < palavras[i].length(); j++){
             string bucket = palavras[i];
@@ -129,6 +160,7 @@ void Grafo<Item>::wordLadders(){
             }
         }             
     }
+
 }
 
 
@@ -144,9 +176,10 @@ void Grafo<Item>::infoCompsConexas(){
     map<Item, int> comp = compConexa();
     int* aux = new int[V];
     for(int i = 0; i < V; i++) aux[i] = 0;
+    //cout << "V = " << V << endl;
     for(auto const& x : comp){
-        aux[x.second]++;
         //cout << "O item " << x.first << " pertence à comp conexa: " << x.second << endl;
+        aux[x.second]++;
     }
     int max = 0, total = 0;
     double media = 0;

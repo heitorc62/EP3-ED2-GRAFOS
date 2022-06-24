@@ -99,6 +99,41 @@ void componentegigante(){
 
 }
 
+void wordLadder(){
+    Grafo<string> grafo = Grafo<string>();
+    grafo.wordLadders();
+    grafo.infoCompsConexas();
+    vector<string> sozinhos = grafo.compsSingulares();
+    cout << "Há " << sozinhos.size() << " palavras desconectadas das demais." << endl;
+    cout << "Algumas delas são: " << endl;
+    if(sozinhos.size() > 10){
+        for(int i = 0; i < 10; i++){
+            cout << sozinhos[i] << endl;
+        }
+    }
+    else{
+        for(int i = 0; i < sozinhos.size(); i++){
+            cout << sozinhos[i] << endl;
+        }
+    }
+    int cont = 0;
+    double media1, media2;
+    vector<string> maior = grafo.maiorComp();
+    for (int i = 0; i < maior.size(); i++){
+        map<string, int> aux = grafo.bfs(maior[i]);
+        media1 = cont = 0;
+        for(auto const& x : aux){
+            if(x.second == INT_MAX || x.second == 0){continue;}
+            media1 += x.second;
+            cont++;
+        }
+        media1 /= cont;
+        media2 += media1;
+    }
+    media2 /= maior.size();
+    cout << "A distância média entre dois vértices da maior componente conexa do grafo de palavras gerado é: " << media2 << endl;
+}
+
 void seisGraus(){
     Grafo<string> grafo = Grafo<string>();
     int n;
@@ -128,10 +163,6 @@ void seisGraus(){
     cout << "p = " << p << endl;
     cout << "A distância média entre dois vértices da maior componente conexa do grafo gerado é: " << media2 << endl;
     
-    
-
-
-    
 }
 
 
@@ -160,7 +191,7 @@ int main(){
     grafo.imprimeLista();
     cout << grafo.V << endl;
     */
-    seisGraus();
+    wordLadder();
     //componentegigante();
     
 }
