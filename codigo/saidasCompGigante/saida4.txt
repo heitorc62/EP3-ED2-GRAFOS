@@ -1,0 +1,7 @@
+inf = .00176000
+sup = .00224000
+n = 500
+p = .000176000
+n = 500
+p = 0.000176
+A distância média entre dois vértices da maior componente conexa do grafo gerado é: 1.33333

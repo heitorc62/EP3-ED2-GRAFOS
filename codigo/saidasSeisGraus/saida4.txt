@@ -1,0 +1,7 @@
+n = 5000
+p = 0.006
+A distância média entre dois vértices da maior componente conexa do grafo gerado é: 2.83477
+
+real	13m54.892s
+user	13m53.562s
+sys	0m0.616s
